@@ -1,7 +1,7 @@
 %define	name		opencity
 %define cname		OpenCity
 %define version		0.0.4
-%define release		%mkrel 1
+%define release		%mkrel 2
 
 Summary: 		OpenCity is a city simulator game
 Name: 			%{name}
@@ -48,28 +48,16 @@ convert -geometry 16x16 %{cname}.png $RPM_BUILD_ROOT%{_miconsdir}/%{cname}.png
 convert -geometry 32x32 %{cname}.png $RPM_BUILD_ROOT%{_iconsdir}/%{cname}.png
 convert -geometry 48x48 %{cname}.png $RPM_BUILD_ROOT%{_liconsdir}/%{cname}.png
 
-# prepare menu
-mkdir -p $RPM_BUILD_ROOT%{_menudir}
-cat > $RPM_BUILD_ROOT%{_menudir}/%{name} << EOF
-?package(%name): needs="x11" \
-        section="More Applications/Games/Strategy" \
-        title="%{cname}" \
-        longtitle="%{cname}" \
-        command="%{_gamesbindir}/%{name}" \
-        icon="%{cname}.png" \
-	xdg="true"
-EOF
-
 mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/%{cname}.desktop << EOF
 [Desktop Entry]
 Name=%{cname}
-Comment=%{Summary}
+Comment=OpenCity is a city simulator game
 Exec=%{_gamesbindir}/%{name}
 Icon=%{cname}
 Terminal=false
 Type=Application
-Categories=Game;StrategyGame;X-MandrivaLinux-MoreApplications-Games-Strategy;
+Categories=Game;StrategyGame;
 EOF
 
 #===============================================================================
@@ -99,11 +87,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS COPYING INSTALL README
 %{_gamesbindir}/%{name}
 %{_gamesbindir}/%{name}-bin
-%{_menudir}/%{name}
 %{_gamesdatadir}/%{name}
 %{_datadir}/applications/OpenCity.desktop
 %{_miconsdir}/%{cname}.png
 %{_iconsdir}/%{cname}.png
 %{_liconsdir}/%{cname}.png
-
-
