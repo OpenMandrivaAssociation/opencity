@@ -18,6 +18,7 @@ Buildrequires:		libSDL_image-devel
 Buildrequires:		libmesagl-devel
 Buildrequires:		libmesaglu-devel
 Buildrequires:		ImageMagick
+Buildrequires:		libpng-devel
 Requires(post): 	desktop-file-utils
 Requires(postun): 	desktop-file-utils
 
