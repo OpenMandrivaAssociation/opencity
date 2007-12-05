@@ -1,7 +1,7 @@
 %define	name		opencity
 %define cname		OpenCity
 %define version		0.0.5
-%define release		%mkrel 2
+%define release		%mkrel 3
 
 Summary: 		OpenCity is a city simulator game
 Name: 			%{name}
@@ -19,6 +19,7 @@ Buildrequires:		libmesagl-devel
 Buildrequires:		libmesaglu-devel
 Buildrequires:		ImageMagick
 Buildrequires:		libpng-devel
+Buildrequires:		desktop-file-utils
 Requires(post): 	desktop-file-utils
 Requires(postun): 	desktop-file-utils
 
