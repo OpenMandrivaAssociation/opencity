@@ -1,7 +1,7 @@
 %define	name		opencity
 %define cname		OpenCity
 %define version		0.0.5
-%define release		%mkrel 1
+%define release		%mkrel 2
 
 Summary: 		OpenCity is a city simulator game
 Name: 			%{name}
