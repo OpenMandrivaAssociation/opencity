@@ -1,7 +1,7 @@
 %define	name		opencity
 %define cname		OpenCity
-%define version		0.0.4
-%define release		%mkrel 2
+%define version		0.0.5
+%define release		%mkrel 1
 
 Summary: 		OpenCity is a city simulator game
 Name: 			%{name}
@@ -18,6 +18,9 @@ Buildrequires:		libSDL_image-devel
 Buildrequires:		libmesagl-devel
 Buildrequires:		libmesaglu-devel
 Buildrequires:		ImageMagick
+Requires(post): 	desktop-file-utils
+Requires(postun): 	desktop-file-utils
+
 
 %description
 OpenCity is a city simulator game project written in standard C++ with OpenGL
@@ -30,7 +33,7 @@ please forget OpenCity. I work on it at my spare time, I really meant it
 %setup -q -n %{name}-%{version}stable
 
 %build
-%configure2_5x  --bindir=%{_gamesbindir}
+%configure2_5x  --bindir=%{_gamesbindir} --sysconfdir=%{_gamesdatadir}
 %make
 
 
@@ -38,27 +41,23 @@ please forget OpenCity. I work on it at my spare time, I really meant it
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
 
-#move data to %%{_gamesdatadir}
-mkdir -p $RPM_BUILD_ROOT%{_gamesdatadir}
-mv $RPM_BUILD_ROOT%{_datadir}/%{name} $RPM_BUILD_ROOT%{_gamesdatadir}/
-
 #prepare icon
 mkdir -p $RPM_BUILD_ROOT{%{_miconsdir},%{_iconsdir},%{_liconsdir},%{_menudir}}
-convert -geometry 16x16 %{cname}.png $RPM_BUILD_ROOT%{_miconsdir}/%{cname}.png
-convert -geometry 32x32 %{cname}.png $RPM_BUILD_ROOT%{_iconsdir}/%{cname}.png
-convert -geometry 48x48 %{cname}.png $RPM_BUILD_ROOT%{_liconsdir}/%{cname}.png
+convert -geometry 16x16 %{name}.png $RPM_BUILD_ROOT%{_miconsdir}/%{cname}.png
+convert -geometry 32x32 %{name}.png $RPM_BUILD_ROOT%{_iconsdir}/%{cname}.png
+convert -geometry 48x48 %{name}.png $RPM_BUILD_ROOT%{_liconsdir}/%{cname}.png
 
-mkdir -p %{buildroot}%{_datadir}/applications
-cat > %{buildroot}%{_datadir}/applications/%{cname}.desktop << EOF
-[Desktop Entry]
-Name=%{cname}
-Comment=OpenCity is a city simulator game
-Exec=%{_gamesbindir}/%{name}
-Icon=%{cname}
-Terminal=false
-Type=Application
-Categories=Game;StrategyGame;
-EOF
+
+# copy file from /usr/share to /usr/share/games
+mv  %{buildroot}%{_datadir}/%{name}/*  %{buildroot}%{_gamesdatadir}/%{name}/
+
+# fix the .desktop
+# an Icon name don't have an extension, so we remove it
+perl -i -pe 's/opencity.png/opencity/' %{name}.desktop
+
+desktop-file-install --add-category="X-MandrivaLinux-MoreApplications-Games-Strategy" \
+		--dir %{buildroot}%{_datadir}/applications %{name}.desktop
+
 
 #===============================================================================
 # add a little script that launch opencity with datat path
@@ -68,15 +67,17 @@ EOF
 mv $RPM_BUILD_ROOT%{_gamesbindir}/%{name} $RPM_BUILD_ROOT%{_gamesbindir}/%{name}-bin
 cat > $RPM_BUILD_ROOT%{_gamesbindir}/%{name} << EOF
 #!/bin/sh
-%{_gamesbindir}/%{name}-bin --homedir %{_gamesdatadir}/%{name}
+%{_gamesbindir}/%{name}-bin --datadir %{_gamesdatadir}/%{name} --confdir %{_gamesdatadir}/%{name}
 EOF
 chmod +x $RPM_BUILD_ROOT%{_gamesbindir}/%{name}
 
 
 %post
+%{update_desktop_database}
 %{update_menus}
 
 %postun
+%{clean_desktop_database}
 %{clean_menus}
 
 %clean
@@ -88,7 +89,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_gamesbindir}/%{name}
 %{_gamesbindir}/%{name}-bin
 %{_gamesdatadir}/%{name}
-%{_datadir}/applications/OpenCity.desktop
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/pixmaps/%{name}.png
+%{_mandir}/man6/*
 %{_miconsdir}/%{cname}.png
 %{_iconsdir}/%{cname}.png
 %{_liconsdir}/%{cname}.png
+
