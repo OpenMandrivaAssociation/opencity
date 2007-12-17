@@ -11,7 +11,6 @@ License: 		GPL
 Group: 			Games/Strategy
 URL: 			http://www.opencity.info/
 Source0: 		%{name}-%{version}stable.tar.bz2
-BuildRoot: 		%{_tmppath}/%{name}-%{version}-%{release}-root
 Buildrequires:		libSDL_net-devel
 Buildrequires:		libSDL_mixer-devel
 Buildrequires:		libSDL_image-devel
