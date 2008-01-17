@@ -1,7 +1,7 @@
 %define	name		opencity
 %define cname		OpenCity
-%define version		0.0.5
-%define release		%mkrel 3
+%define version		0.0.5.1
+%define release		%mkrel 1
 
 Summary: 		OpenCity is a city simulator game
 Name: 			%{name}
@@ -32,10 +32,10 @@ please forget OpenCity. I work on it at my spare time, I really meant it
 "my spare time" !
 
 %prep
-%setup -q -n %{name}-%{version}stable
+%setup -q -n %{name}-0.0.5stable
 
 %build
-%configure2_5x  --bindir=%{_gamesbindir} --sysconfdir=%{_gamesdatadir}
+%configure2_5x  --bindir=%{_gamesbindir}
 %make
 
 
@@ -43,14 +43,14 @@ please forget OpenCity. I work on it at my spare time, I really meant it
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
 
-#prepare icon
+# prepare icon
 mkdir -p $RPM_BUILD_ROOT{%{_miconsdir},%{_iconsdir},%{_liconsdir},%{_menudir}}
 convert -geometry 16x16 %{name}.png $RPM_BUILD_ROOT%{_miconsdir}/%{cname}.png
 convert -geometry 32x32 %{name}.png $RPM_BUILD_ROOT%{_iconsdir}/%{cname}.png
 convert -geometry 48x48 %{name}.png $RPM_BUILD_ROOT%{_liconsdir}/%{cname}.png
 
-
 # copy file from /usr/share to /usr/share/games
+mkdir -p %{buildroot}%{_gamesdatadir}/%{name}
 mv  %{buildroot}%{_datadir}/%{name}/*  %{buildroot}%{_gamesdatadir}/%{name}/
 
 # fix the .desktop
@@ -69,7 +69,7 @@ desktop-file-install --add-category="X-MandrivaLinux-MoreApplications-Games-Stra
 mv $RPM_BUILD_ROOT%{_gamesbindir}/%{name} $RPM_BUILD_ROOT%{_gamesbindir}/%{name}-bin
 cat > $RPM_BUILD_ROOT%{_gamesbindir}/%{name} << EOF
 #!/bin/sh
-%{_gamesbindir}/%{name}-bin --datadir %{_gamesdatadir}/%{name} --confdir %{_gamesdatadir}/%{name}
+%{_gamesbindir}/%{name}-bin --datadir %{_gamesdatadir}/%{name} --confdir %{_sysconfdir}/%{name}
 EOF
 chmod +x $RPM_BUILD_ROOT%{_gamesbindir}/%{name}
 
@@ -87,9 +87,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS COPYING INSTALL README
+%doc AUTHORS COPYING INSTALL README 
+%doc docs/FAQ_it.txt docs/INSTALL_it.txt docs/README_it.txt
+%doc docs/README_es.txt
 %{_gamesbindir}/%{name}
 %{_gamesbindir}/%{name}-bin
+%{_sysconfdir}/%{name}
 %{_gamesdatadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
@@ -97,4 +100,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_miconsdir}/%{cname}.png
 %{_iconsdir}/%{cname}.png
 %{_liconsdir}/%{cname}.png
-
