@@ -27,7 +27,7 @@ Requires(postun): 	desktop-file-utils
 %description
 OpenCity is a city simulator game project written in standard C++ with OpenGL
 and SDL from scratch. It is not intended to be a clone of any famous city 
-simulator from Max*s. So, if you are looking to download a free SimCity 4 like, 
+simulator from Max*s. So, if you are looking to download a free SimCity 4 like,
 please forget OpenCity. I work on it at my spare time, I really meant it 
 "my spare time" !
 
