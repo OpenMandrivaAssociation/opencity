@@ -3,7 +3,7 @@
 %define version		0.0.5.1
 %define release		%mkrel 1
 
-Summary: 		OpenCity is a city simulator game
+Summary: 		City simulator game
 Name: 			%{name}
 Version: 		%{version}		
 Release: 		%{release}
