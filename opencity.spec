@@ -17,7 +17,7 @@ Buildrequires:		libSDL_mixer-devel
 Buildrequires:		libSDL_image-devel
 Buildrequires:		libmesagl-devel
 Buildrequires:		libmesaglu-devel
-Buildrequires:		ImageMagick
+Buildrequires:		imagemagick
 Buildrequires:		libpng-devel
 Buildrequires:		desktop-file-utils
 Requires(post): 	desktop-file-utils
