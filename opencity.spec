@@ -1,7 +1,10 @@
+%define _disable_ld_no_undefined 1
+%define _disable_ld_as_needed 1
+
 %define	name		opencity
 %define cname		OpenCity
-%define version		0.0.5.1
-%define release		%mkrel 4
+%define version		0.0.6.1
+%define release		%mkrel 1
 
 Summary: 		City simulator game
 Name: 			%{name}
@@ -32,7 +35,7 @@ please forget OpenCity. I work on it at my spare time, I really meant it
 "my spare time" !
 
 %prep
-%setup -q -n %{name}-0.0.5stable
+%setup -q -n %{name}-0.0.6stable
 
 %build
 %configure2_5x  --bindir=%{_gamesbindir}
