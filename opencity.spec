@@ -4,7 +4,7 @@
 %define	name		opencity
 %define cname		OpenCity
 %define version		0.0.6.1
-%define release		%mkrel 1
+%define release		%mkrel 2
 
 Summary: 		City simulator game
 Name: 			%{name}
@@ -72,7 +72,7 @@ desktop-file-install --add-category="X-MandrivaLinux-MoreApplications-Games-Stra
 mv $RPM_BUILD_ROOT%{_gamesbindir}/%{name} $RPM_BUILD_ROOT%{_gamesbindir}/%{name}-bin
 cat > $RPM_BUILD_ROOT%{_gamesbindir}/%{name} << EOF
 #!/bin/sh
-%{_gamesbindir}/%{name}-bin --datadir %{_gamesdatadir}/%{name} --confdir %{_sysconfdir}/%{name}
+%{_gamesbindir}/%{name}-bin --data-dir %{_gamesdatadir}/%{name} --conf-dir %{_sysconfdir}/%{name}
 EOF
 chmod +x $RPM_BUILD_ROOT%{_gamesbindir}/%{name}
 
