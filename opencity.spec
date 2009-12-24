@@ -3,7 +3,7 @@
 
 %define	name		opencity
 %define cname		OpenCity
-%define version		0.0.6.1
+%define version		0.0.6.2
 %define release		%mkrel 3
 
 Summary: 		City simulator game
@@ -13,7 +13,7 @@ Release: 		%{release}
 License: 		GPL
 Group: 			Games/Strategy
 URL: 			http://www.opencity.info/
-Source0: 		%{name}-%{version}stable.tar.bz2
+Source0: 		http://downloads.sourceforge.net/project/opencity/Stable/0.0.6/%{name}-%{version}stable.tar.bz2
 BuildRoot: 		%{_tmppath}/%{name}-%{version}-%{release}-root
 Buildrequires:		libSDL_net-devel
 Buildrequires:		libSDL_mixer-devel
@@ -35,7 +35,7 @@ please forget OpenCity. I work on it at my spare time, I really meant it
 "my spare time" !
 
 %prep
-%setup -q -n %{name}-0.0.6stable
+%setup -q -n %{name}-%{version}stable
 
 %build
 %configure2_5x  --bindir=%{_gamesbindir}
