@@ -6,7 +6,7 @@
 Summary:	City simulator game
 Name:		opencity
 Version:	0.0.6.4
-Release:	1
+Release:	2
 License:	GPL
 Group:		Games/Strategy
 URL:		http://www.opencity.info/
