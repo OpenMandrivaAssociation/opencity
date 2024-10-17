@@ -9,7 +9,7 @@ Version:	0.0.6.4
 Release:	2
 License:	GPL
 Group:		Games/Strategy
-URL:		http://www.opencity.info/
+URL:		https://www.opencity.info/
 Source0:	http://downloads.sourceforge.net/project/opencity/Stable/0.0.6/%{name}-%{version}stable.tar.bz2
 Patch0:		opencity-0.0.6.4-gcc4.7.patch
 BuildRequires:	pkgconfig(gl)
